@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圣诞信</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: url('./背景.jpg') center/cover no-repeat;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 圣诞装饰元素 */
+        .christmas-scene {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .christmas-tree {
+            position: absolute;
+            width: 120px;
+            height: 150px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: sway 4s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .tree-left {
+            left: 20px;
+            bottom: 20px;
+            transform: scaleX(-1);
+        }
+
+        .tree-right {
+            right: 20px;
+            bottom: 20px;
+        }
+
+        .santa-claus {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            right: 120px;
+            bottom: 10px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: bobble 3s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .gift-box {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+        }
+
+        .gift-1 {
+            left: 80px;
+            bottom: 15px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .gift-2 {
+            left: 140px;
+            bottom: 18px;
+            animation: pulse 2s ease-in-out infinite 0.5s;
+        }
+
+        .candy-cane {
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .candy-1 {
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: rotate 6s linear infinite;
+        }
+
+        .candy-2 {
+            right: 30px;
+            top: 30%;
+            animation: rotate 6s linear infinite reverse;
+        }
+
+        .star-decoration {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: twinkle-star 2s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .star-1 {
+            left: 15%;
+            top: 20%;
+        }
+
+        .star-2 {
+            right: 25%;
+            top: 15%;
+            animation-delay: 1s;
+        }
+
+        .star-3 {
+            left: 20%;
+            top: 60%;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        @keyframes bobble {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes rotate {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        @keyframes twinkle-star {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* 雪花效果 */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 9999;
+            user-select: none;
+            cursor: default;
+            animation: snowfall linear infinite;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.6));
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100px);
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px));
+            }
+        }
+
+        /* 信封容器 */
+        .envelope-container {
+            position: relative;
+            width: 600px;
+            height: 380px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .envelope-container.opened {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.1);
+            z-index: 1000;
+            width: 600px;
+            height: auto;
+            max-height: 90vh;
+        }
+
+        /* 信封 - 适配信纸的米黄色调 */
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f4e4c1, #e8d4a7, #d4b896);
+            border-radius: 12px;
+            box-shadow: 0 20px 45px rgba(139, 69, 19, 0.3), 0 8px 20px rgba(160, 82, 45, 0.2), 
+                        inset 0 2px 8px rgba(255, 255, 255, 0.6), inset 0 -2px 8px rgba(139, 69, 19, 0.1);
+            transition: all 0.6s ease;
+            border: 2px solid #d4af37;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(212, 175, 55, 0.1) 50%, 
+                transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-50%) translateY(-50%) rotate(45deg); }
+            50% { transform: translateX(-30%) translateY(-30%) rotate(45deg); }
+        }
+
+        /* 信封盖子 - 深一点的米黄色调 */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(135deg, #e8d4a7, #d4b896, #c9a378);
+            transform-origin: top;
+            transition: transform 0.8s ease;
+            border-radius: 12px 12px 0 0;
+            z-index: 10;
+            box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.4), 
+                        inset 0 -2px 8px rgba(139, 69, 19, 0.1);
+            position: relative;
+        }
+
+        .envelope-flap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(212, 175, 55, 0.05) 10px,
+                rgba(212, 175, 55, 0.05) 20px
+            );
+            border-radius: 12px 12px 0 0;
+        }
+
+        .envelope-flap::before {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 120px solid transparent;
+            border-right: 120px solid transparent;
+            border-bottom: 60px solid #c9a378;
+            filter: drop-shadow(0 2px 8px rgba(139, 69, 19, 0.3));
+        }
+
+        /* 信封打开状态 */
+        .envelope-container.opened .envelope-flap {
+            transform: rotateX(-180deg);
+        }
+
+        /* 信纸 - 按新图片样式修改 */
+        .letter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            /* 米黄色底纹+暗纹背景 */
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="%23f8e9d0"><path d="M0 0h100v100H0z"/><path d="M10 10h80v80H10z" fill="%23f5e1c3" opacity="0.3"/><path d="M20 20h60v60H20z" fill="%23f0d8b6" opacity="0.2"/></svg>') repeat, #fdf5e6;
+            border-radius: 8px;
+            padding: 40px 30px 30px;
+            box-shadow: 0 8px 25px rgba(100, 50, 20, 0.15), 
+                        inset 0 2px 8px rgba(255, 255, 255, 0.9);
+            transform: translateY(400px);
+            opacity: 0;
+            transition: all 0.8s ease 0.3s;
+            overflow-y: auto;
+            z-index: 5;
+            /* 金色花纹边框 */
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        /* 信纸金色边框装饰 */
+        .letter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 3px solid #d4af37;
+            border-radius: 8px;
+            z-index: -1;
+            opacity: 0.8;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="%23d4af37"><path d="M10 10C5 10 0 15 0 20s5 10 10 10 10-5 10-10-5-10-10-10zm20 0C25 10 20 15 20 20s5 10 10 10 10-5 10-10-5-10-10-10z" opacity="0.1"/></svg>') repeat;
+        }
+
+        /* 信纸顶部蝴蝶结装饰 */
+        .letter::after {
+            content: '🎀';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            color: #d62828;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .envelope-container.opened .letter {
+            max-height: 80vh;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+        }
+
+        .envelope-container.opened .letter {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* 信纸内容 - 按新图片样式修改 */
+        .letter-content {
+            text-align: center;
+            color: #333;
+            position: relative;
+            z-index: 2;
+        }
+
+        .letter-header {
+            font-size: 26px;
+            color: #d62828;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(214, 40, 40, 0.2);
+            /* 标题两侧圣诞树装饰 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .letter-header::before,
+        .letter-header::after {
+            content: '🎄';
+            font-size: 20px;
+        }
+
+        .letter-greeting {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #9c2c1a;
+            font-weight: 500;
+        }
+
+        .letter-body {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: left;
+            color: #444;
+            /* 段落首行缩进 */
+            text-indent: 2em;
+        }
+
+        .letter-closing {
+            font-size: 18px;
+            margin-top: 30px;
+            color: #9c2c1a;
+        }
+
+        .letter-signature {
+            font-size: 20px;
+            color: #d62828;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .letter-signature.clickable {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 3px rgba(214, 40, 40, 0.3);
+            animation: signature-glow 2s ease-in-out infinite;
+        }
+
+        .letter-signature.clickable:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 6px rgba(214, 40, 40, 0.5);
+        }
+
+        @keyframes signature-glow {
+            0%, 100% { text-shadow: 0 0 3px rgba(214, 40, 40, 0.3); }
+            50% { text-shadow: 0 0 8px rgba(214, 40, 40, 0.6); }
+        }
+
+        .cute-emoji {
+            font-size: 20px;
+            vertical-align: middle;
+            margin: 0 3px;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        /* 移除原有装饰元素（改用图片样式的边框/蝴蝶结） */
+        .christmas-decoration, .heart-decoration {
+            display: none;
+        }
+
+        /* 爱心火漆印 */
+        .wax-seal {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #dc143c, #b71c1c, #8b0000);
+            clip-path: path('M30,15 C20,0 0,7.5 0,25 C0,42.5 30,60 30,60 C30,60 60,42.5 60,25 C60,7.5 40,0 30,15');
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4), 0 2px 8px rgba(139, 0, 0, 0.3), inset 0 -2px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 15;
+            animation: seal-glow 2s ease-in-out infinite;
+        }
+
+        .wax-seal::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b6b, #dc143c, #8b0000);
+            clip-path: path('M20,10 C13,0 0,5 0,16 C0,27 20,40 20,40 C20,40 40,27 40,16 C40,5 27,0 20,10');
+            animation: seal-inner-glow 3s ease-in-out infinite alternate;
+        }
+
+        .wax-seal::after {
+            content: '❤️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes seal-glow {
+            0%, 100% { 
+                box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4), 0 2px 8px rgba(139, 0, 0, 0.3), inset 0 -2px 6px rgba(0, 0, 0, 0.2);
+                transform: translateX(-50%) scale(1);
+            }
+            50% { 
+                box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6), 0 3px 12px rgba(139, 0, 0, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.3);
+                transform: translateX(-50%) scale(1.05);
+            }
+        }
+
+        @keyframes seal-inner-glow {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .wax-seal:hover {
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: 0 6px 25px rgba(220, 20, 60, 0.6), 0 3px 15px rgba(139, 0, 0, 0.4);
+        }
+
+        /* 火漆文字提示 */
+        .seal-hint {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            text-align: center;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+            font-weight: 500;
+            background: rgba(220, 20, 60, 0.2);
+            padding: 6px 12px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(220, 20, 60, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .envelope-container.opened .seal-hint,
+        .envelope-container.opened .wax-seal {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* 圣诞帽装饰 */
+        .santa-hat {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 60px solid #dc143c;
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.5s;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .santa-hat::before {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: -40px;
+            width: 80px;
+            height: 20px;
+            background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .santa-hat::after {
+            content: '⭐';
+            position: absolute;
+            bottom: -45px;
+            left: -8px;
+            font-size: 24px;
+            filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
+        }
+
+        .envelope-container.opened .santa-hat {
+            opacity: 1;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 480px) {
+            .envelope-container {
+                width: 350px;
+                height: 250px;
+            }
+            
+            .letter {
+                padding: 30px 20px 20px;
+            }
+            
+            .letter-header {
+                font-size: 24px;
+            }
+            
+            .letter-greeting,
+            .letter-closing {
+                font-size: 16px;
+            }
+            
+            .letter-body {
+                font-size: 14px;
+            }
+        }
+
+        /* 大屏手机/小平板 */
+        @media (min-width: 481px) and (max-width: 767px) {
+            .envelope-container {
+                width: 480px;
+                height: 320px;
+            }
+            
+            .letter {
+                padding: 35px 25px 25px;
+            }
+            
+            .letter-header {
+                font-size: 26px;
+            }
+            
+            .letter-greeting,
+            .letter-closing {
+                font-size: 18px;
+            }
+            
+            .letter-body {
+                font-size: 16px;
+            }
+            
+            .letter-signature {
+                font-size: 21px;
+            }
+        }
+
+        /* 平板优化 (包括12.6寸) */
+        @media (min-width: 768px) and (max-width: 1366px) {
+            .envelope-container {
+                width: 700px;
+                height: 450px;
+            }
+            
+            .envelope-container.opened {
+                width: 700px;
+            }
+            
+            .letter {
+                padding: 45px 30px 30px;
+            }
+            
+            .envelope-container.opened .letter {
+                max-height: 80vh;
+            }
+            
+            .letter-header {
+                font-size: 28px;
+            }
+            
+            .letter-greeting,
+            .letter-closing {
+                font-size: 20px;
+            }
+            
+            .letter-body {
+                font-size: 18px;
+                line-height: 1.8;
+            }
+            
+            .letter-signature {
+                font-size: 22px;
+            }
+            
+            .hint {
+                font-size: 18px;
+                bottom: 60px;
+            }
+        }
+
+        /* PC端大屏优化 */
+        @media (min-width: 1367px) {
+            .envelope-container {
+                width: 750px;
+                height: 480px;
+            }
+            
+            .envelope-container.opened {
+                width: 750px;
+            }
+            
+            .letter {
+                padding: 50px 35px 35px;
+            }
+            
+            .envelope-container.opened .letter {
+                max-height: 75vh;
+            }
+            
+            .letter-header {
+                font-size: 28px;
+            }
+            
+            .letter-greeting,
+            .letter-closing {
+                font-size: 20px;
+            }
+            
+            .letter-body {
+                font-size: 18px;
+                line-height: 1.8;
+            }
+            
+            .letter-signature {
+                font-size: 22px;
+            }
+            
+            .hint {
+                font-size: 18px;
+                bottom: 60px;
+            }
+        }
+
+        /* 照片展示模态框 */
+        .photo-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            z-index: 2000;
+            overflow: auto;
+            animation: modal-fade-in 0.3s ease;
+        }
+
+        .photo-modal.show {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes modal-fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .photo-header {
+            position: relative;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .photo-title {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            animation: title-glow 2s ease-in-out infinite;
+        }
+
+        .photo-subtitle {
+            color: #f4e4c1;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes title-glow {
+            0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(212, 175, 55, 0.5); }
+            50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.8); }
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .photo-item {
+            position: relative;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #f4e4c1, #e8d4a7);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: photo-appear 0.5s ease backwards;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .photo-item:nth-child(1) { animation-delay: 0.1s; }
+        .photo-item:nth-child(2) { animation-delay: 0.2s; }
+        .photo-item:nth-child(3) { animation-delay: 0.3s; }
+        .photo-item:nth-child(4) { animation-delay: 0.4s; }
+        .photo-item:nth-child(5) { animation-delay: 0.5s; }
+        .photo-item:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes photo-appear {
+            from { 
+                opacity: 0; 
+                transform: scale(0.5) rotate(10deg);
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .photo-emoji {
+            animation: emoji-bounce 3s ease-in-out infinite;
+        }
+
+        @keyframes emoji-bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 2001;
+        }
+
+        .close-modal:hover {
+            transform: scale(1.2);
+            color: #dc143c;
+        }
+
+        /* 响应式照片展示 */
+        @media (max-width: 768px) {
+            .photo-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                width: 95%;
+            }
+            
+            .photo-title {
+                font-size: 24px;
+            }
+            
+            .photo-subtitle {
+                font-size: 16px;
+            }
+            
+            .photo-item {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-gallery {
+                grid-template-columns: 1fr;
+                width: 90%;
+            }
+            
+            .photo-title {
+                font-size: 20px;
+            }
+            
+            .photo-item {
+                font-size: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 雪花效果 -->
+    <div id="snowflakes"></div>
+
+    <!-- 圣诞场景装饰 -->
+    <div class="christmas-scene">
+        <!-- 左侧圣诞树 -->
+        <div class="christmas-tree tree-left" id="tree-left"></div>
+        
+        <!-- 右侧圣诞树 -->
+        <div class="christmas-tree tree-right" id="tree-right"></div>
+        
+        <!-- 圣诞老人 -->
+        <div class="santa-claus" id="santa-claus"></div>
+        
+        <!-- 礼物盒 -->
+        <div class="gift-box gift-1" id="gift-1"></div>
+        <div class="gift-box gift-2" id="gift-2"></div>
+        
+        <!-- 拐杖糖 -->
+        <div class="candy-cane candy-1" id="candy-1"></div>
+        <div class="candy-cane candy-2" id="candy-2"></div>
+        
+        <!-- 星星装饰 -->
+        <div class="star-decoration star-1" id="star-1"></div>
+        <div class="star-decoration star-2" id="star-2"></div>
+        <div class="star-decoration star-3" id="star-3"></div>
+    </div>
+
+    <!-- 信封容器 -->
+    <div class="envelope-container" id="envelope">
+        <!-- 圣诞帽 -->
+        <div class="santa-hat"></div>
+        
+        <!-- 信封主体 -->
+        <div class="envelope">
+            <!-- 信封盖子 -->
+            <div class="envelope-flap"></div>
+            
+            <!-- 信纸 -->
+            <div class="letter">
+                <div class="letter-content" id="letterContent">
+                    <!-- 动态内容将通过JS插入 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 火漆印和提示 -->
+        <div class="seal-hint">💕 点击爱心火漆查看悄悄话 💕</div>
+        <div class="wax-seal" id="waxSeal"></div>
+    </div>
+
+    <!-- 照片展示模态框 -->
+    <div class="photo-modal" id="photoModal">
+        <div class="close-modal" id="closeModal">✕</div>
+        <div class="photo-header">
+            <h2 class="photo-title">💕 我们的美好回忆 💕</h2>
+            <p class="photo-subtitle">每一张照片都是我们爱情的见证</p>
+        </div>
+        <div class="photo-gallery" id="photoGallery">
+            <!-- 照片将动态生成 -->
+        </div>
+    </div>
+
+    <script>
+        // 信件内容数据（匹配图片文案）
+        const letterData = {
+            header: '致我最亲爱的小宝贝',
+            greeting: '我最最最亲爱的宝贝：',
+            body: [
+                '在这个飘着雪花的圣诞夜晚，我最想做的事情就是给你写这封信❤️。',
+                '',
+                '认识你以来，我的世界就像被施了魔法一样，每天都有甜甜的味道😋，你的笑容是我见过最美的风景，你的声音是我听过最动听的音乐🎵。',
+                '',
+                '圣诞节到了，我想把所有最好的东西都送给你：❤️把我的真心送给你✨把星空送给你🎁把所有温柔都送给你',
+                '',
+                '谢谢你出现在我的生命里，让我变成了更好的人，和你在一起的每一天，都像是圣诞节一样充满惊喜和甜蜜🍬。',
+                '',
+                '希望圣诞老人能听到我的愿望：想和你一起看雪，一起喝热可可，一起数天上的星星✨。想在每个平凡的日子里，都有你可爱的笑容陪伴。',
+                '',
+                '愿我的宝贝永远开心，永远被爱包围，永远做最幸福的小公主👑'
+            ],
+            closing: ['永远爱你的，'],
+            signature: ['爱你的 —— 唐富慷 ❤️']
+        };
+
+        // 渲染信件内容
+        function renderLetter() {
+            const letterContent = document.getElementById('letterContent');
+            
+            let html = '';
+            
+            // 添加标题
+            html += `<h2 class="letter-header">${letterData.header}</h2>`;
+            
+            // 添加称呼
+            html += `<p class="letter-greeting">${letterData.greeting}</p>`;
+            
+            // 添加正文
+            html += '<div class="letter-body">';
+            letterData.body.forEach(paragraph => {
+                if (paragraph === '') {
+                    html += '<br><br>';
+                } else {
+                    html += paragraph;
+                }
+            });
+            html += '</div>';
+            
+            // 添加结尾
+            if (letterData.closing.length > 0) {
+                html += '<div class="letter-closing">';
+                letterData.closing.forEach(line => {
+                    html += `<p>${line}</p>`;
+                });
+                html += '</div>';
+            }
+            
+            // 添加署名
+            if (letterData.signature.length > 0) {
+                html += '<div class="letter-signature clickable" id="signature">';
+                letterData.signature.forEach(line => {
+                    html += `<p>${line}</p>`;
+                });
+                html += '</div>';
+            }
+            
+            letterContent.innerHTML = html;
+        }
+
+        // 创建雪花效果
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakeChars = ['❄', '❅', '❆', '✻', '✼', '💕', '💖', '💗', '🎄', '⭐', '✨'];
+            
+            setInterval(() => {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDuration = (Math.random() * 4 + 3) + 's';
+                snowflake.style.opacity = Math.random() * 0.4 + 0.6;
+                snowflake.style.fontSize = (Math.random() * 8 + 12) + 'px';
+                
+                snowflakesContainer.appendChild(snowflake);
+                
+                // 移除已经落下的雪花
+                setTimeout(() => {
+                    if (snowflake.parentNode) {
+                        snowflake.parentNode.removeChild(snowflake);
+                    }
+                }, 7000);
+            }, 300);
+        }
+
+        // 信封点击事件
+        function initEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const waxSeal = document.getElementById('waxSeal');
+            
+            function openEnvelope() {
+                if (!envelope.classList.contains('opened')) {
+                    envelope.classList.add('opened');
+                    
+                    // 播放音效
+                    playOpenSound();
+                    
+                    // 渲染信件内容
+                    setTimeout(() => {
+                        renderLetter();
+                        createMagicalParticles();
+                        initPhotoModal();
+                    }, 800);
+                }
+            }
+            
+            // 可以点击信封或火漆印打开
+            envelope.addEventListener('click', openEnvelope);
+            waxSeal.addEventListener('click', openEnvelope);
+        }
+
+        // 模拟打开信封的音效
+        function playOpenSound() {
+            console.log('💕 打开信封的浪漫音效 💕');
+            playBackgroundMusic();
+        }
+
+        // 播放背景音乐
+        function playBackgroundMusic() {
+            const audio = new Audio('./唯一.mp3');
+            audio.currentTime = 27; // 从26秒开始播放
+            audio.play().catch(error => {
+                console.log('音频播放失败:', error);
+            });
+        }
+
+        // 创建魔法粒子效果（调整为圣诞配色）
+        function createMagicalParticles() {
+            const colors = ['#d62828', '#f77f00', '#d4af37', '#e94057', '#f27121'];
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = '12px';
+                particle.style.height = '12px';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '10000';
+                particle.style.left = '50%';
+                particle.style.top = '50%';
+                particle.style.boxShadow = `0 0 6px ${colors[Math.floor(Math.random() * colors.length)]}`;
+                
+                document.body.appendChild(particle);
+                
+                const angle = (Math.PI * 2 * i) / 30;
+                const velocity = Math.random() * 400 + 200;
+                const lifetime = Math.random() * 1500 + 1000;
+                
+                particle.animate([
+                    {
+                        transform: 'translate(-50%, -50%) scale(0) rotate(0deg)',
+                        opacity: 1
+                    },
+                    {
+                        transform: `translate(${Math.cos(angle) * velocity - 50}px, ${Math.sin(angle) * velocity - 50}px) scale(1) rotate(180deg)`,
+                        opacity: 1
+                    },
+                    {
+                        transform: `translate(${Math.cos(angle) * velocity - 50}px, ${Math.sin(angle) * velocity - 50}px) scale(0) rotate(360deg)`,
+                        opacity: 0
+                    }
+                ], {
+                    duration: lifetime,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                }).onfinish = () => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                };
+            }
+        }
+
+        // 设置圣诞装饰（直接使用emoji）
+        function setupChristmasDecorations() {
+            // 直接使用emoji作为装饰
+            const emojiDecorations = {
+                'tree-left': '🎄',
+                'tree-right': '🌲',
+                'santa-claus': '🎅',
+                'gift-1': '🎁',
+                'gift-2': '🎀',
+                'candy-1': '🍬',
+                'candy-2': '🍭',
+                'star-1': '⭐',
+                'star-2': '✨',
+                'star-3': '🌟'
+            };
+
+            Object.keys(emojiDecorations).forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.style.fontSize = '40px';
+                    element.style.display = 'flex';
+                    element.style.alignItems = 'center';
+                    element.style.justifyContent = 'center';
+                    element.textContent = emojiDecorations[id];
+                }
+            });
+
+            // 额外添加更多表情装饰
+            createAdditionalDecorations();
+        }
+
+        // 创建额外的表情装饰
+        function createAdditionalDecorations() {
+            const additionalEmojis = ['❤️', '💕', '💖', '💗', '🎄', '🎅', '🎁', '🌟', '⭐', '✨', '🍬', '🍭', '🔔', '🎀'];
+            
+            for (let i = 0; i < 15; i++) {
+                const decoration = document.createElement('div');
+                decoration.style.position = 'fixed';
+                decoration.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                decoration.style.zIndex = '1';
+                decoration.style.pointerEvents = 'none';
+                decoration.textContent = additionalEmojis[Math.floor(Math.random() * additionalEmojis.length)];
+                
+                // 随机位置
+                decoration.style.left = Math.random() * 90 + 5 + '%';
+                decoration.style.top = Math.random() * 80 + 10 + '%';
+                
+                // 随机动画
+                const animations = ['sway 3s ease-in-out infinite', 'bobble 2s ease-in-out infinite', 'pulse 2s ease-in-out infinite'];
+                decoration.style.animation = animations[Math.floor(Math.random() * animations.length)];
+                decoration.style.animationDelay = Math.random() * 3 + 's';
+                
+                document.body.appendChild(decoration);
+            }
+        }
+
+        // 初始化照片模态框
+        function initPhotoModal() {
+            const signature = document.getElementById('signature');
+            const photoModal = document.getElementById('photoModal');
+            const closeModal = document.getElementById('closeModal');
+            const photoGallery = document.getElementById('photoGallery');
+            
+            if (!signature || !photoModal) return;
+            
+            // 点击署名打开照片展示
+            signature.addEventListener('click', function() {
+                createPhotoGallery();
+                photoModal.classList.add('show');
+                playPhotoShowSound();
+            });
+            
+            // 关闭模态框
+            closeModal.addEventListener('click', function() {
+                photoModal.classList.remove('show');
+            });
+            
+            // 点击背景关闭模态框
+            photoModal.addEventListener('click', function(e) {
+                if (e.target === photoModal) {
+                    photoModal.classList.remove('show');
+                }
+            });
+        }
+
+        // 创建照片画廊（使用emoji作为示例）
+        function createPhotoGallery() {
+            const photoGallery = document.getElementById('photoGallery');
+            if (!photoGallery) return;
+            
+            // 清空现有内容
+            photoGallery.innerHTML = '';
+            
+            // 创建照片数据（使用emoji代替实际照片）
+            const photoData = [
+                { emoji: '💕', title: '第一次约会' },
+                { emoji: '🌹', title: '浪漫时刻' },
+                { emoji: '🎂', title: '生日惊喜' },
+                { emoji: '🌅', title: '日出美景' },
+                { emoji: '🎄', title: '圣诞快乐' },
+                { emoji: '💝', title: '甜蜜日常' }
+            ];
+            
+            photoData.forEach((photo, index) => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                photoItem.innerHTML = `<div class="photo-emoji">${photo.emoji}</div>`;
+                photoItem.title = photo.title;
+                
+                photoItem.addEventListener('click', function() {
+                    showPhotoDetail(photo, index);
+                });
+                
+                photoGallery.appendChild(photoItem);
+            });
+        }
+
+        // 显示照片详情
+        function showPhotoDetail(photo, index) {
+            // 创建一个简单的照片详情显示
+            const detail = document.createElement('div');
+            detail.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #f4e4c1, #e8d4a7);
+                padding: 30px;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                z-index: 3000;
+                text-align: center;
+                animation: modal-fade-in 0.3s ease;
+            `;
+            detail.innerHTML = `
+                <div style="font-size: 100px; margin-bottom: 15px;">${photo.emoji}</div>
+                <h3 style="color: #d62828; margin-bottom: 10px; font-size: 24px;">${photo.title}</h3>
+                <p style="color: #666; margin-bottom: 20px;">这是我们的第${index + 1}个美好回忆</p>
+                <button onclick="this.parentElement.remove()" style="
+                    background: #d62828;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 16px;
+                ">关闭</button>
+            `;
+            
+            document.body.appendChild(detail);
+        }
+
+        // 播放照片展示音效
+        function playPhotoShowSound() {
+            console.log('💕 照片展示的浪漫音效 💕');
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createSnowflakes();
+            setupChristmasDecorations();
+            initEnvelope();
+            console.log('💕 浪漫的圣诞节开始啦 💕');
+        });
+
+        // 防止移动端双击缩放
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
