@@ -382,7 +382,7 @@
             top: 0;
             left: 0;
             right: 0;
-            bottom: -390px;
+            bottom: -385px;
             border: 3px solid #d4af37;
             border-radius: 8px;
             z-index: -1;
@@ -1422,12 +1422,12 @@
 
             // 创建照片数据（使用实际照片）
             const photoData = [
-                { image: './image/1.jpg', title: '第一次约会' },
-                { image: './image/2.jpg', title: '浪漫时刻' },
-                { image: './image/3.jpg', title: '生日惊喜' },
-                { image: './image/4.jpg', title: '日出美景' },
-                { image: './image/5.jpg', title: '圣诞快乐' },
-                { image: './image/6.jpg', title: '甜蜜日常' }
+                { image: './image/1.jpg', title: '' },
+                { image: './image/2.jpg', title: '' },
+                { image: './image/3.jpg', title: '' },
+                { image: './image/4.jpg', title: '' },
+                { image: './image/5.jpg', title: '' },
+                { image: './image/6.jpg', title: '' }
             ];
 
             photoData.forEach((photo, index) => {
@@ -1486,7 +1486,6 @@
                     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
                 ">
                 <h3 style="color: #d62828; margin-bottom: 10px; font-size: 24px;">${photo.title}</h3>
-                <p style="color: #666; margin-bottom: 20px;">这是我们的第${index + 1}个美好回忆</p>
                 <button onclick="this.parentElement.remove()" style="
                     background: #d62828;
                     color: white;
