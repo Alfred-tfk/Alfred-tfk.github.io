@@ -846,26 +846,33 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .photo-3d-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            border-radius: 15px;
+        }
+
+        .photo-3d-emoji {
+            font-size: 60px;
+            margin-bottom: 10px;
+            z-index: 2;
+            animation: emoji-3d-float 3s ease-in-out infinite;
         }
 
         .photo-3d-title {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
-            color: white;
-            padding: 20px 10px 10px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             z-index: 2;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .photo-3d-content:hover .photo-3d-title {
-            opacity: 1;
         }
 
         @keyframes emoji-3d-float {
@@ -996,7 +1003,7 @@
         </div>
         
         <!-- 火漆印和提示 -->
-        <div class="seal-hint">💕 点击拆开信封 💕</div>
+        <div class="seal-hint">💕 点击爱心火漆查看悄悄话 💕</div>
         <div class="wax-seal" id="waxSeal"></div>
     </div>
 
@@ -1031,7 +1038,7 @@
                 '愿我的宝贝永远开心，永远被爱包围，永远做最幸福的小公主👑'
             ],
             closing: ['永远爱你的，'],
-            signature: ['爱你的 —— 唐富慷 ❤️']
+            signature: ['爱你的徒弟 —— 富慷 ❤️']
         };
 
         // 渲染信件内容
@@ -1290,14 +1297,14 @@
             // 设置中等速度（10秒）
             carousel3D.style.animationDuration = '10s';
             
-            // 创建照片数据（使用实际照片）
+            // 创建照片数据（使用emoji代替实际照片）
             const photoData = [
-                { image: './image/1.jpg', title: '第一次约会' },
-                { image: './image/2.jpg', title: '浪漫时刻' },
-                { image: './image/3.jpg', title: '生日惊喜' },
-                { image: './image/4.jpg', title: '日出美景' },
-                { image: './image/5.jpg', title: '圣诞快乐' },
-                { image: './image/6.jpg', title: '甜蜜日常' }
+                { emoji: '💕', title: '第一次约会', color: '#ff6b9d' },
+                { emoji: '🌹', title: '浪漫时刻', color: '#c9184a' },
+                { emoji: '🎂', title: '生日惊喜', color: '#ff8c42' },
+                { emoji: '🌅', title: '日出美景', color: '#ffd23f' },
+                { emoji: '🎄', title: '圣诞快乐', color: '#06ffa5' },
+                { emoji: '💝', title: '甜蜜日常', color: '#ff006e' }
             ];
             
             photoData.forEach((photo, index) => {
@@ -1305,13 +1312,8 @@
                 photoItem.className = 'photo-3d-item';
                 photoItem.style.transform = `rotateY(${index * 60}deg) translateZ(200px)`;
                 photoItem.innerHTML = `
-                    <div class="photo-3d-content">
-                        <img src="${photo.image}" alt="${photo.title}" style="
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                            border-radius: 15px;
-                        ">
+                    <div class="photo-3d-content" style="background: ${photo.color}">
+                        <div class="photo-3d-emoji">${photo.emoji}</div>
                         <div class="photo-3d-title">${photo.title}</div>
                     </div>
                 `;
@@ -1336,25 +1338,15 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
                 background: linear-gradient(135deg, #f4e4c1, #e8d4a7);
-                padding: 20px;
+                padding: 30px;
                 border-radius: 15px;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
                 z-index: 3000;
                 text-align: center;
                 animation: modal-fade-in 0.3s ease;
-                max-width: 90vw;
-                max-height: 90vh;
-                overflow: auto;
             `;
             detail.innerHTML = `
-                <img src="${photo.image}" alt="${photo.title}" style="
-                    max-width: 80vw;
-                    max-height: 60vh;
-                    object-fit: contain;
-                    border-radius: 10px;
-                    margin-bottom: 15px;
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-                ">
+                <div style="font-size: 100px; margin-bottom: 15px;">${photo.emoji}</div>
                 <h3 style="color: #d62828; margin-bottom: 10px; font-size: 24px;">${photo.title}</h3>
                 <p style="color: #666; margin-bottom: 20px;">这是我们的第${index + 1}个美好回忆</p>
                 <button onclick="this.parentElement.remove()" style="
@@ -1369,13 +1361,6 @@
             `;
             
             document.body.appendChild(detail);
-            
-            // 点击背景关闭详情
-            detail.addEventListener('click', function(e) {
-                if (e.target === detail) {
-                    detail.remove();
-                }
-            });
         }
 
         // 播放照片展示音效
