@@ -309,13 +309,13 @@
         .letter {
             position: absolute;
             top: 20px;
-            left: 20px;
-            right: 20px;
+            left: 25px;
+            right: 25px;
             bottom: 20px;
             /* 米黄色底纹+暗纹背景 */
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="%23f8e9d0"><path d="M0 0h100v100H0z"/><path d="M10 10h80v80H10z" fill="%23f5e1c3" opacity="0.3"/><path d="M20 20h60v60H20z" fill="%23f0d8b6" opacity="0.2"/></svg>') repeat, #fdf5e6;
             border-radius: 8px;
-            padding: 40px 30px 30px;
+            padding: 40px 35px 30px;
             box-shadow: 0 8px 25px rgba(100, 50, 20, 0.15), 
                         inset 0 2px 8px rgba(255, 255, 255, 0.9);
             transform: translateY(400px);
@@ -355,13 +355,14 @@
             color: #d62828;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             z-index: 1;
+            padding-top: 5vh;
         }
 
         .envelope-container.opened .letter {
             max-height: 80vh;
             top: 20px;
-            left: 20px;
-            right: 20px;
+            left: 25px;
+            right: 25px;
             bottom: 20px;
         }
 
@@ -405,9 +406,9 @@
         }
 
         .letter-body {
-            font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 20px;
             text-align: left;
             color: #444;
             /* 段落首行缩进 */
@@ -605,20 +606,25 @@
             }
             
             .letter {
-                padding: 30px 20px 20px;
+                padding: 25px 20px 15px;
             }
             
             .letter-header {
-                font-size: 24px;
+                font-size: 22px;
             }
             
             .letter-greeting,
             .letter-closing {
-                font-size: 16px;
+                font-size: 15px;
             }
             
             .letter-body {
-                font-size: 14px;
+                font-size: 12px;
+                line-height: 1.6;
+            }
+            
+            .letter-signature {
+                font-size: 16px;
             }
         }
 
@@ -630,24 +636,25 @@
             }
             
             .letter {
-                padding: 35px 25px 25px;
+                padding: 30px 25px 20px;
             }
             
             .letter-header {
-                font-size: 26px;
+                font-size: 24px;
             }
             
             .letter-greeting,
             .letter-closing {
-                font-size: 18px;
+                font-size: 17px;
             }
             
             .letter-body {
-                font-size: 16px;
+                font-size: 14px;
+                line-height: 1.6;
             }
             
             .letter-signature {
-                font-size: 21px;
+                font-size: 19px;
             }
         }
 
@@ -663,7 +670,7 @@
             }
             
             .letter {
-                padding: 45px 30px 30px;
+                padding: 40px 30px 25px;
             }
             
             .envelope-container.opened .letter {
@@ -671,21 +678,21 @@
             }
             
             .letter-header {
-                font-size: 28px;
+                font-size: 26px;
             }
             
             .letter-greeting,
             .letter-closing {
-                font-size: 20px;
+                font-size: 18px;
             }
             
             .letter-body {
-                font-size: 18px;
-                line-height: 1.8;
+                font-size: 16px;
+                line-height: 1.7;
             }
             
             .letter-signature {
-                font-size: 22px;
+                font-size: 20px;
             }
             
             .hint {
@@ -706,7 +713,7 @@
             }
             
             .letter {
-                padding: 50px 35px 35px;
+                padding: 45px 35px 30px;
             }
             
             .envelope-container.opened .letter {
@@ -714,21 +721,21 @@
             }
             
             .letter-header {
-                font-size: 28px;
+                font-size: 26px;
             }
             
             .letter-greeting,
             .letter-closing {
-                font-size: 20px;
+                font-size: 18px;
             }
             
             .letter-body {
-                font-size: 18px;
-                line-height: 1.8;
+                font-size: 15px;
+                line-height: 1.7;
             }
             
             .letter-signature {
-                font-size: 22px;
+                font-size: 20px;
             }
             
             .hint {
@@ -1013,25 +1020,27 @@
     </div>
 
     <script>
-        // 信件内容数据（匹配图片文案）
+        // 信件内容数据（2025圣诞夜）
         const letterData = {
             header: '致我最亲爱的小宝贝',
             greeting: '我最最最亲爱的宝贝：',
             body: [
-                '在这个飘着雪花的圣诞夜晚，我最想做的事情就是给你写这封信❤️。',
+                '外面又开始挂圣诞灯了🎄。今年我还是想写信给你——和四年前一样，坐在桌前，笔尖悬了很久。',
                 '',
-                '认识你以来，我的世界就像被施了魔法一样，每天都有甜甜的味道😋，你的笑容是我见过最美的风景，你的声音是我听过最动听的音乐🎵。',
+                '从前，车马很慢，书信很远，一生只够爱一个人💕。而现在，世间喧嚣，人潮拥挤，多少人匆匆一世也未必寻得一人。',
                 '',
-                '圣诞节到了，我想把所有最好的东西都送给你：❤️把我的真心送给你✨把星空送给你🎁把所有温柔都送给你',
+                '幸好我早早地遇见了你✨。所以我又坐在这里，一笔一划地写。只愿时光能缓一些，再缓一些，不要让我们匆匆忙忙就走完了一生。',
                 '',
-                '谢谢你出现在我的生命里，让我变成了更好的人，和你在一起的每一天，都像是圣诞节一样充满惊喜和甜蜜🍬。',
+                '还记得21年我做了那个网页吗？其实《唯一》单曲循环了一整夜🎵，代码反反复复改，总怕哪里不够好。那时候还不太敢想"永远"，但现在你已经快成为我的妻子了👰‍♀️。时间真奇怪，有些东西变了，有些却一直没变——比如我每次想跟你说点什么，还是会手心冒汗😅。',
                 '',
-                '希望圣诞老人能听到我的愿望：想和你一起看雪，一起喝热可可，一起数天上的星星✨。想在每个平凡的日子里，都有你可爱的笑容陪伴。',
+                '回头想想，我那些在日常里冒出来的犹豫、敏感和没来由的患得患失，你好像都明白。你从不急着说破，更不刻意纠正，只是用你的方式静静陪着我——或许是拉我出门打一场孩子气的雪仗⛄，或许是轻轻碰碰我，让我看天空中烧透了的晚霞🌅。还有我偷吃你零食时，你那些古灵精怪的小表情😏，明明"奶凶奶凶"的，但是又会献宝似的把"打猎"带回来的好吃的塞给我🎁。就在这些平常得几乎会被忘记的时刻里，我那些飘忽的、悬着的心事，就这样一点点、悄无声息地落了地。你让我懂得：踏实不是独自在风浪中站稳，而是知道身边始终有一份不会离开的温暖❤️。',
                 '',
-                '愿我的宝贝永远开心，永远被爱包围，永远做最幸福的小公主👑'
+                '四年前那首《唯一》，今夜我还是想放给你听🎶。有些歌听到前奏，心不知不觉就会软下来。',
+                '',
+                '今夜，当灯光暗下，屏幕亮起🌟，愿你能听见字里行间未说尽的：与你并肩，是我所有胡思乱想的最终答案💕。'
             ],
-            closing: ['永远爱你的，'],
-            signature: ['爱你的 —— 唐富慷 ❤️']
+            closing: ['圣诞快乐🎄', '爱你的', '富慷'],
+            signature: ['2025年圣诞夜']
         };
 
         // 渲染信件内容
@@ -1057,18 +1066,22 @@
             });
             html += '</div>';
             
-            // 添加结尾
+            // 添加结尾和署名
             if (letterData.closing.length > 0) {
                 html += '<div class="letter-closing">';
-                letterData.closing.forEach(line => {
-                    html += `<p>${line}</p>`;
+                letterData.closing.forEach((line, index) => {
+                    if (index === 1) { // "爱你的" 这一行设为可点击
+                        html += `<p class="letter-signature clickable" id="signature">${line}</p>`;
+                    } else {
+                        html += `<p>${line}</p>`;
+                    }
                 });
                 html += '</div>';
             }
             
-            // 添加署名
+            // 添加日期
             if (letterData.signature.length > 0) {
-                html += '<div class="letter-signature clickable" id="signature">';
+                html += '<div class="letter-signature">';
                 letterData.signature.forEach(line => {
                     html += `<p>${line}</p>`;
                 });
