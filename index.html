@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -157,23 +158,51 @@
         }
 
         @keyframes sway {
-            0%, 100% { transform: rotate(-2deg); }
-            50% { transform: rotate(2deg); }
+
+            0%,
+            100% {
+                transform: rotate(-2deg);
+            }
+
+            50% {
+                transform: rotate(2deg);
+            }
         }
 
         @keyframes bobble {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         @keyframes rotate {
-            0% { transform: translateY(-50%) rotate(0deg); }
-            100% { transform: translateY(-50%) rotate(360deg); }
+            0% {
+                transform: translateY(-50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-50%) rotate(360deg);
+            }
         }
 
         @keyframes twinkle-star {
-            0%, 100% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
         }
 
         /* 雪花效果 */
@@ -193,6 +222,7 @@
             0% {
                 transform: translateY(-100px);
             }
+
             100% {
                 transform: translateY(calc(100vh + 100px));
             }
@@ -225,8 +255,8 @@
             height: 100%;
             background: linear-gradient(135deg, #f4e4c1, #e8d4a7, #d4b896);
             border-radius: 12px;
-            box-shadow: 0 20px 45px rgba(139, 69, 19, 0.3), 0 8px 20px rgba(160, 82, 45, 0.2), 
-                        inset 0 2px 8px rgba(255, 255, 255, 0.6), inset 0 -2px 8px rgba(139, 69, 19, 0.1);
+            box-shadow: 0 20px 45px rgba(139, 69, 19, 0.3), 0 8px 20px rgba(160, 82, 45, 0.2),
+                inset 0 2px 8px rgba(255, 255, 255, 0.6), inset 0 -2px 8px rgba(139, 69, 19, 0.1);
             transition: all 0.6s ease;
             border: 2px solid #d4af37;
             position: relative;
@@ -240,16 +270,23 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, 
-                transparent 30%, 
-                rgba(212, 175, 55, 0.1) 50%, 
-                transparent 70%);
+            background: linear-gradient(45deg,
+                    transparent 30%,
+                    rgba(212, 175, 55, 0.1) 50%,
+                    transparent 70%);
             animation: shimmer 3s ease-in-out infinite;
         }
 
         @keyframes shimmer {
-            0%, 100% { transform: translateX(-50%) translateY(-50%) rotate(45deg); }
-            50% { transform: translateX(-30%) translateY(-30%) rotate(45deg); }
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(-50%) rotate(45deg);
+            }
+
+            50% {
+                transform: translateX(-30%) translateY(-30%) rotate(45deg);
+            }
         }
 
         /* 信封盖子 - 深一点的米黄色调 */
@@ -264,8 +301,8 @@
             transition: transform 0.8s ease;
             border-radius: 12px 12px 0 0;
             z-index: 10;
-            box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.4), 
-                        inset 0 -2px 8px rgba(139, 69, 19, 0.1);
+            box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.4),
+                inset 0 -2px 8px rgba(139, 69, 19, 0.1);
             position: relative;
         }
 
@@ -276,13 +313,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(212, 175, 55, 0.05) 10px,
-                rgba(212, 175, 55, 0.05) 20px
-            );
+            background: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(212, 175, 55, 0.05) 10px,
+                    rgba(212, 175, 55, 0.05) 20px);
             border-radius: 12px 12px 0 0;
         }
 
@@ -316,17 +351,28 @@
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="%23f8e9d0"><path d="M0 0h100v100H0z"/><path d="M10 10h80v80H10z" fill="%23f5e1c3" opacity="0.3"/><path d="M20 20h60v60H20z" fill="%23f0d8b6" opacity="0.2"/></svg>') repeat, #fdf5e6;
             border-radius: 8px;
             padding: 40px 35px 30px;
-            box-shadow: 0 8px 25px rgba(100, 50, 20, 0.15), 
-                        inset 0 2px 8px rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 25px rgba(100, 50, 20, 0.15),
+                inset 0 2px 8px rgba(255, 255, 255, 0.9);
             transform: translateY(400px);
             opacity: 0;
             transition: all 0.8s ease 0.3s;
             overflow-y: auto;
+            /* 隐藏滚动条但保留滚动功能 */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE 和 Edge */
             z-index: 5;
             /* 金色花纹边框 */
             border: 3px solid transparent;
             background-clip: padding-box;
             position: relative;
+            margin-right: 35px;
+        }
+
+        .letter::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Opera */
         }
 
         /* 信纸金色边框装饰 */
@@ -336,7 +382,7 @@
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
+            bottom: -390px;
             border: 3px solid #d4af37;
             border-radius: 8px;
             z-index: -1;
@@ -353,7 +399,7 @@
             transform: translateX(-50%);
             font-size: 40px;
             color: #d62828;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             z-index: 1;
             padding-top: 5vh;
         }
@@ -377,6 +423,7 @@
             color: #333;
             position: relative;
             z-index: 2;
+            padding-top: 35px;
         }
 
         .letter-header {
@@ -441,8 +488,15 @@
         }
 
         @keyframes signature-glow {
-            0%, 100% { text-shadow: 0 0 3px rgba(214, 40, 40, 0.3); }
-            50% { text-shadow: 0 0 8px rgba(214, 40, 40, 0.6); }
+
+            0%,
+            100% {
+                text-shadow: 0 0 3px rgba(214, 40, 40, 0.3);
+            }
+
+            50% {
+                text-shadow: 0 0 8px rgba(214, 40, 40, 0.6);
+            }
         }
 
         .cute-emoji {
@@ -454,13 +508,27 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-5px); }
-            60% { transform: translateY(-3px); }
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-5px);
+            }
+
+            60% {
+                transform: translateY(-3px);
+            }
         }
 
         /* 移除原有装饰元素（改用图片样式的边框/蝴蝶结） */
-        .christmas-decoration, .heart-decoration {
+        .christmas-decoration,
+        .heart-decoration {
             display: none;
         }
 
@@ -506,19 +574,27 @@
         }
 
         @keyframes seal-glow {
-            0%, 100% { 
+
+            0%,
+            100% {
                 box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4), 0 2px 8px rgba(139, 0, 0, 0.3), inset 0 -2px 6px rgba(0, 0, 0, 0.2);
                 transform: translateX(-50%) scale(1);
             }
-            50% { 
+
+            50% {
                 box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6), 0 3px 12px rgba(139, 0, 0, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.3);
                 transform: translateX(-50%) scale(1.05);
             }
         }
 
         @keyframes seal-inner-glow {
-            0% { opacity: 0.6; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 0.6;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
         .wax-seal:hover {
@@ -546,8 +622,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         .envelope-container.opened .seal-hint,
@@ -604,25 +687,25 @@
                 width: 350px;
                 height: 250px;
             }
-            
+
             .letter {
                 padding: 25px 20px 15px;
             }
-            
+
             .letter-header {
                 font-size: 22px;
             }
-            
+
             .letter-greeting,
             .letter-closing {
                 font-size: 15px;
             }
-            
+
             .letter-body {
                 font-size: 12px;
                 line-height: 1.6;
             }
-            
+
             .letter-signature {
                 font-size: 16px;
             }
@@ -634,25 +717,25 @@
                 width: 480px;
                 height: 320px;
             }
-            
+
             .letter {
                 padding: 30px 25px 20px;
             }
-            
+
             .letter-header {
                 font-size: 24px;
             }
-            
+
             .letter-greeting,
             .letter-closing {
                 font-size: 17px;
             }
-            
+
             .letter-body {
                 font-size: 14px;
                 line-height: 1.6;
             }
-            
+
             .letter-signature {
                 font-size: 19px;
             }
@@ -664,37 +747,37 @@
                 width: 700px;
                 height: 450px;
             }
-            
+
             .envelope-container.opened {
                 width: 700px;
             }
-            
+
             .letter {
                 padding: 40px 30px 25px;
             }
-            
+
             .envelope-container.opened .letter {
                 max-height: 80vh;
             }
-            
+
             .letter-header {
                 font-size: 26px;
             }
-            
+
             .letter-greeting,
             .letter-closing {
                 font-size: 18px;
             }
-            
+
             .letter-body {
                 font-size: 16px;
                 line-height: 1.7;
             }
-            
+
             .letter-signature {
                 font-size: 20px;
             }
-            
+
             .hint {
                 font-size: 18px;
                 bottom: 60px;
@@ -707,37 +790,37 @@
                 width: 750px;
                 height: 480px;
             }
-            
+
             .envelope-container.opened {
                 width: 750px;
             }
-            
+
             .letter {
                 padding: 45px 35px 30px;
             }
-            
+
             .envelope-container.opened .letter {
                 max-height: 75vh;
             }
-            
+
             .letter-header {
                 font-size: 26px;
             }
-            
+
             .letter-greeting,
             .letter-closing {
                 font-size: 18px;
             }
-            
+
             .letter-body {
                 font-size: 15px;
                 line-height: 1.7;
             }
-            
+
             .letter-signature {
                 font-size: 20px;
             }
-            
+
             .hint {
                 font-size: 18px;
                 bottom: 60px;
@@ -766,8 +849,13 @@
         }
 
         @keyframes modal-fade-in {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .photo-header {
@@ -792,8 +880,15 @@
         }
 
         @keyframes title-glow {
-            0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(212, 175, 55, 0.5); }
-            50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.8); }
+
+            0%,
+            100% {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(212, 175, 55, 0.5);
+            }
+
+            50% {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.8);
+            }
         }
 
         /* 3D旋转相册样式 */
@@ -818,11 +913,25 @@
         }
 
         @keyframes rotate-3d {
-            0% { transform: rotateX(-10deg) rotateY(0deg); }
-            25% { transform: rotateX(0deg) rotateY(90deg); }
-            50% { transform: rotateX(10deg) rotateY(180deg); }
-            75% { transform: rotateX(0deg) rotateY(270deg); }
-            100% { transform: rotateX(-10deg) rotateY(360deg); }
+            0% {
+                transform: rotateX(-10deg) rotateY(0deg);
+            }
+
+            25% {
+                transform: rotateX(0deg) rotateY(90deg);
+            }
+
+            50% {
+                transform: rotateX(10deg) rotateY(180deg);
+            }
+
+            75% {
+                transform: rotateX(0deg) rotateY(270deg);
+            }
+
+            100% {
+                transform: rotateX(-10deg) rotateY(360deg);
+            }
         }
 
         .photo-3d-item {
@@ -860,7 +969,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
             color: white;
             padding: 20px 10px 10px;
             font-size: 14px;
@@ -876,8 +985,15 @@
         }
 
         @keyframes emoji-3d-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .close-modal {
@@ -903,26 +1019,26 @@
                 height: 300px;
                 perspective: 800px;
             }
-            
+
             .photo-3d-item {
                 width: 150px;
                 height: 190px;
                 margin-left: -75px;
                 margin-top: -95px;
             }
-            
+
             .photo-3d-emoji {
                 font-size: 40px;
             }
-            
+
             .photo-3d-title {
                 font-size: 14px;
             }
-            
+
             .photo-title {
                 font-size: 24px;
             }
-            
+
             .photo-subtitle {
                 font-size: 16px;
             }
@@ -933,28 +1049,29 @@
                 height: 250px;
                 perspective: 600px;
             }
-            
+
             .photo-3d-item {
                 width: 120px;
                 height: 150px;
                 margin-left: -60px;
                 margin-top: -75px;
             }
-            
+
             .photo-3d-emoji {
                 font-size: 30px;
             }
-            
+
             .photo-3d-title {
                 font-size: 12px;
             }
-            
+
             .photo-title {
                 font-size: 20px;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- 雪花效果 -->
     <div id="snowflakes"></div>
@@ -963,21 +1080,21 @@
     <div class="christmas-scene">
         <!-- 左侧圣诞树 -->
         <div class="christmas-tree tree-left" id="tree-left"></div>
-        
+
         <!-- 右侧圣诞树 -->
         <div class="christmas-tree tree-right" id="tree-right"></div>
-        
+
         <!-- 圣诞老人 -->
         <div class="santa-claus" id="santa-claus"></div>
-        
+
         <!-- 礼物盒 -->
         <div class="gift-box gift-1" id="gift-1"></div>
         <div class="gift-box gift-2" id="gift-2"></div>
-        
+
         <!-- 拐杖糖 -->
         <div class="candy-cane candy-1" id="candy-1"></div>
         <div class="candy-cane candy-2" id="candy-2"></div>
-        
+
         <!-- 星星装饰 -->
         <div class="star-decoration star-1" id="star-1"></div>
         <div class="star-decoration star-2" id="star-2"></div>
@@ -988,12 +1105,12 @@
     <div class="envelope-container" id="envelope">
         <!-- 圣诞帽 -->
         <div class="santa-hat"></div>
-        
+
         <!-- 信封主体 -->
         <div class="envelope">
             <!-- 信封盖子 -->
             <div class="envelope-flap"></div>
-            
+
             <!-- 信纸 -->
             <div class="letter">
                 <div class="letter-content" id="letterContent">
@@ -1001,7 +1118,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- 火漆印和提示 -->
         <div class="seal-hint">💕 点击拆开信封 💕</div>
         <div class="wax-seal" id="waxSeal"></div>
@@ -1046,15 +1163,15 @@
         // 渲染信件内容
         function renderLetter() {
             const letterContent = document.getElementById('letterContent');
-            
+
             let html = '';
-            
+
             // 添加标题
             html += `<h2 class="letter-header">${letterData.header}</h2>`;
-            
+
             // 添加称呼
             html += `<p class="letter-greeting">${letterData.greeting}</p>`;
-            
+
             // 添加正文
             html += '<div class="letter-body">';
             letterData.body.forEach(paragraph => {
@@ -1065,7 +1182,7 @@
                 }
             });
             html += '</div>';
-            
+
             // 添加结尾和署名
             if (letterData.closing.length > 0) {
                 html += '<div class="letter-closing">';
@@ -1078,7 +1195,7 @@
                 });
                 html += '</div>';
             }
-            
+
             // 添加日期
             if (letterData.signature.length > 0) {
                 html += '<div class="letter-signature">';
@@ -1087,7 +1204,7 @@
                 });
                 html += '</div>';
             }
-            
+
             letterContent.innerHTML = html;
         }
 
@@ -1095,7 +1212,7 @@
         function createSnowflakes() {
             const snowflakesContainer = document.getElementById('snowflakes');
             const snowflakeChars = ['❄', '❅', '❆', '✻', '✼', '💕', '💖', '💗', '🎄', '⭐', '✨'];
-            
+
             setInterval(() => {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
@@ -1104,9 +1221,9 @@
                 snowflake.style.animationDuration = (Math.random() * 4 + 3) + 's';
                 snowflake.style.opacity = Math.random() * 0.4 + 0.6;
                 snowflake.style.fontSize = (Math.random() * 8 + 12) + 'px';
-                
+
                 snowflakesContainer.appendChild(snowflake);
-                
+
                 // 移除已经落下的雪花
                 setTimeout(() => {
                     if (snowflake.parentNode) {
@@ -1120,14 +1237,14 @@
         function initEnvelope() {
             const envelope = document.getElementById('envelope');
             const waxSeal = document.getElementById('waxSeal');
-            
+
             function openEnvelope() {
                 if (!envelope.classList.contains('opened')) {
                     envelope.classList.add('opened');
-                    
+
                     // 播放音效
                     playOpenSound();
-                    
+
                     // 渲染信件内容
                     setTimeout(() => {
                         renderLetter();
@@ -1136,7 +1253,7 @@
                     }, 800);
                 }
             }
-            
+
             // 可以点击信封或火漆印打开
             envelope.addEventListener('click', openEnvelope);
             waxSeal.addEventListener('click', openEnvelope);
@@ -1160,7 +1277,7 @@
         // 创建魔法粒子效果（调整为圣诞配色）
         function createMagicalParticles() {
             const colors = ['#d62828', '#f77f00', '#d4af37', '#e94057', '#f27121'];
-            
+
             for (let i = 0; i < 30; i++) {
                 const particle = document.createElement('div');
                 particle.style.position = 'fixed';
@@ -1173,13 +1290,13 @@
                 particle.style.left = '50%';
                 particle.style.top = '50%';
                 particle.style.boxShadow = `0 0 6px ${colors[Math.floor(Math.random() * colors.length)]}`;
-                
+
                 document.body.appendChild(particle);
-                
+
                 const angle = (Math.PI * 2 * i) / 30;
                 const velocity = Math.random() * 400 + 200;
                 const lifetime = Math.random() * 1500 + 1000;
-                
+
                 particle.animate([
                     {
                         transform: 'translate(-50%, -50%) scale(0) rotate(0deg)',
@@ -1238,7 +1355,7 @@
         // 创建额外的表情装饰
         function createAdditionalDecorations() {
             const additionalEmojis = ['❤️', '💕', '💖', '💗', '🎄', '🎅', '🎁', '🌟', '⭐', '✨', '🍬', '🍭', '🔔', '🎀'];
-            
+
             for (let i = 0; i < 15; i++) {
                 const decoration = document.createElement('div');
                 decoration.style.position = 'fixed';
@@ -1246,16 +1363,16 @@
                 decoration.style.zIndex = '1';
                 decoration.style.pointerEvents = 'none';
                 decoration.textContent = additionalEmojis[Math.floor(Math.random() * additionalEmojis.length)];
-                
+
                 // 随机位置
                 decoration.style.left = Math.random() * 90 + 5 + '%';
                 decoration.style.top = Math.random() * 80 + 10 + '%';
-                
+
                 // 随机动画
                 const animations = ['sway 3s ease-in-out infinite', 'bobble 2s ease-in-out infinite', 'pulse 2s ease-in-out infinite'];
                 decoration.style.animation = animations[Math.floor(Math.random() * animations.length)];
                 decoration.style.animationDelay = Math.random() * 3 + 's';
-                
+
                 document.body.appendChild(decoration);
             }
         }
@@ -1266,23 +1383,23 @@
             const photoModal = document.getElementById('photoModal');
             const closeModal = document.getElementById('closeModal');
             const photoGallery = document.getElementById('photoGallery');
-            
+
             if (!signature || !photoModal) return;
-            
+
             // 点击署名打开照片展示
-            signature.addEventListener('click', function() {
+            signature.addEventListener('click', function () {
                 createPhotoGallery();
                 photoModal.classList.add('show');
                 playPhotoShowSound();
             });
-            
+
             // 关闭模态框
-            closeModal.addEventListener('click', function() {
+            closeModal.addEventListener('click', function () {
                 photoModal.classList.remove('show');
             });
-            
+
             // 点击背景关闭模态框
-            photoModal.addEventListener('click', function(e) {
+            photoModal.addEventListener('click', function (e) {
                 if (e.target === photoModal) {
                     photoModal.classList.remove('show');
                 }
@@ -1293,16 +1410,16 @@
         function createPhotoGallery() {
             const photoGallery = document.getElementById('photoGallery');
             if (!photoGallery) return;
-            
+
             // 清空现有内容
             photoGallery.innerHTML = '';
-            
+
             // 创建3D旋转容器
             const carousel3D = document.createElement('div');
             carousel3D.className = 'carousel-3d';
             // 设置中等速度（10秒）
             carousel3D.style.animationDuration = '10s';
-            
+
             // 创建照片数据（使用实际照片）
             const photoData = [
                 { image: './image/1.jpg', title: '第一次约会' },
@@ -1312,7 +1429,7 @@
                 { image: './image/5.jpg', title: '圣诞快乐' },
                 { image: './image/6.jpg', title: '甜蜜日常' }
             ];
-            
+
             photoData.forEach((photo, index) => {
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-3d-item';
@@ -1328,14 +1445,14 @@
                         <div class="photo-3d-title">${photo.title}</div>
                     </div>
                 `;
-                
-                photoItem.addEventListener('click', function() {
+
+                photoItem.addEventListener('click', function () {
                     showPhotoDetail(photo, index);
                 });
-                
+
                 carousel3D.appendChild(photoItem);
             });
-            
+
             photoGallery.appendChild(carousel3D);
         }
 
@@ -1380,11 +1497,11 @@
                     font-size: 16px;
                 ">关闭</button>
             `;
-            
+
             document.body.appendChild(detail);
-            
+
             // 点击背景关闭详情
-            detail.addEventListener('click', function(e) {
+            detail.addEventListener('click', function (e) {
                 if (e.target === detail) {
                     detail.remove();
                 }
@@ -1397,7 +1514,7 @@
         }
 
         // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             createSnowflakes();
             setupChristmasDecorations();
             initEnvelope();
@@ -1405,11 +1522,12 @@
         });
 
         // 防止移动端双击缩放
-        document.addEventListener('touchstart', function(event) {
+        document.addEventListener('touchstart', function (event) {
             if (event.touches.length > 1) {
                 event.preventDefault();
             }
         });
     </script>
 </body>
+
 </html>
